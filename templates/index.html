@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title mb-4">Solve a definite integral</h2>
+        <form method="POST" class="row g-3">
+          <div class="col-12">
+            <label for="integrand" class="form-label">Integrand</label>
+            <input type="text" class="form-control" id="integrand"
+                   name="integrand" placeholder="e.g. 3x*sin(x)">
+          </div>
+
+          <div class="col-md-3">
+            <label for="variable" class="form-label">Variable</label>
+            <select class="form-select" id="variable" name="variable">
+              <option value="x" selected>x</option>
+              <option value="y">y</option>
+              <option value="t">t</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="lower" class="form-label">Lower bound</label>
+            <input type="text" class="form-control" id="lower"
+                   name="lower" placeholder="e.g. 0">
+          </div>
+
+          <div class="col-md-4">
+            <label for="upper" class="form-label">Upper bound</label>
+            <input type="text" class="form-control" id="upper"
+                   name="upper" placeholder="e.g. pi">
+          </div>
+
+          <div class="col-12 text-center mt-4">
+            <button class="btn btn-primary btn-lg" type="submit">
+              Solve &amp; Animate
+            </button>
+          </div>
+        </form>
+
+        <!-- Live preview -->
+        <hr class="my-4">
+        <div id="preview" class="text-center fs-4 text-primary"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Debounce helper */
+function debounce(fn, delay){
+  let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), delay); };
+}
+
+/* Send current form values to /latex and render with MathJax */
+function updatePreview(){
+  const data = {
+    integrand: document.getElementById("integrand").value,
+    variable:  document.getElementById("variable").value,
+    lower:     document.getElementById("lower").value,
+    upper:     document.getElementById("upper").value
+  };
+
+  fetch("{{ url_for('latex_preview') }}", {
+    method: "POST",
+    headers: { "Content-Type":"application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.expr){
+      const latex = `\\displaystyle \\int_{${d.lower||"?"}}^{${d.upper||"?"}} ${d.expr}\\,d${data.variable}`;
+      document.getElementById("preview").innerHTML = `\\[${latex}\\]`;
+      MathJax.typesetPromise();
+    } else {
+      document.getElementById("preview").textContent = "";
+    }
+  });
+}
+
+/* Attach debounced listeners */
+["integrand","lower","upper","variable"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", debounce(updatePreview, 300));
+});
+</script>
+{% endblock %}

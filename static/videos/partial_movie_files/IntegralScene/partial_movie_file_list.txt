@@ -1,0 +1,7 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/keith/MathVis/static/videos/partial_movie_files/IntegralScene/3977891868_1589118382_3396108409.mp4'
+file 'file:/Users/keith/MathVis/static/videos/partial_movie_files/IntegralScene/2852726489_4071516364_2957510737.mp4'
+file 'file:/Users/keith/MathVis/static/videos/partial_movie_files/IntegralScene/2852726489_3287802692_652946975.mp4'
+file 'file:/Users/keith/MathVis/static/videos/partial_movie_files/IntegralScene/2852726489_4071516364_1945068370.mp4'
+file 'file:/Users/keith/MathVis/static/videos/partial_movie_files/IntegralScene/2852726489_123787805_71321089.mp4'
+file 'file:/Users/keith/MathVis/static/videos/partial_movie_files/IntegralScene/2852726489_4247107814_802701078.mp4'

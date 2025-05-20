@@ -1,0 +1,20 @@
+<div class="position-relative d-inline-block">
+    <button id="seek-back"
+            class="btn btn-outline-primary position-absolute top-50 start-0 translate-middle-y">
+      ◀ Back
+    </button>
+  
+    <video id="solution-video" class="w-100 rounded shadow" controls autoplay>
+      <source src="{{ video_url }}?t={{ (range(1)|list)[0] }}" type="video/mp4">
+      Your browser doesn’t support HTML5 video.
+    </video>
+  
+    <button id="seek-forward"
+            class="btn btn-outline-primary position-absolute top-50 end-0 translate-middle-y">
+      Next ▶
+    </button>
+  </div>
+  <a href="{{ url_for('index') }}" class="btn btn-outline-primary mt-4">
+    Solve another integral
+  </a>
+  

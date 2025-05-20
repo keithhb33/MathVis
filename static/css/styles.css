@@ -1,0 +1,3 @@
+/* Subtle card shadow & rounded video corners */
+.card      { border-radius: 0.75rem; }
+video      { border-radius: 0.75rem; }
